@@ -51,7 +51,7 @@
             android:name=".TestStorageActivity"
             android:exported="true"
             android:label="@string/app_short_name"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop" android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
