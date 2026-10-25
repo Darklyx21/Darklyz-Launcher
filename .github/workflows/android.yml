@@ -1,12 +1,15 @@
+
 name: Darklyz Launcher - Android CI
 
 on:
   push:
     branches:
       - darklyz-launcher
+
   pull_request:
     branches:
       - darklyz-launcher
+
   workflow_dispatch:
 
 permissions:
@@ -26,63 +29,130 @@ jobs:
       CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
 
     steps:
+      # ============================================================
+      # 1. DESCARGAR EL REPOSITORIO
+      # ============================================================
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           submodules: recursive
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v4
-
-      - name: Install Android SDK packages
-        run: |
-          sdkmanager --install \
-            "platform-tools" \
-            "platforms;android-37.0" \
-            "build-tools;36.0.0" \
-            "ndk;27.3.13750724"
-
+      # ============================================================
+      # 2. INSTALAR ANDROID SDK
+      # ============================================================
       - name: Set up Android SDK
         uses: android-actions/setup-android@v4
         with:
-          packages: 'platforms;android-37 build-tools;36.0.0 ndk;27.3.13750724'
+          packages: 'platform-tools platforms;android-37.0 build-tools;36.0.0 ndk;27.3.13750724'
 
+      # ============================================================
+      # 3. COMPATIBILIDAD CON ANDROID SDK 37
+      # Android publica esta plataforma en android-37.0.
+      # Algunas versiones de Gradle/AGP buscan android-37.
+      # ============================================================
+      - name: Fix Android 37 SDK path compatibility
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          PLATFORM_DIR="${SDK}/platforms"
+
+          echo "Android SDK: ${SDK}"
+
+          if [ ! -d "${PLATFORM_DIR}/android-37.0" ]; then
+            echo "::error::Android SDK Platform 37.0 was not installed."
+            echo "Available platform directories:"
+
+            if [ -d "${PLATFORM_DIR}" ]; then
+              ls -la "${PLATFORM_DIR}"
+            fi
+
+            exit 1
+          fi
+
+          if [ ! -e "${PLATFORM_DIR}/android-37" ]; then
+            ln -s \
+              "${PLATFORM_DIR}/android-37.0" \
+              "${PLATFORM_DIR}/android-37"
+
+            echo "Compatibility path created."
+          else
+            echo "Compatibility path already exists."
+          fi
+
+          ls -ld \
+            "${PLATFORM_DIR}/android-37.0" \
+            "${PLATFORM_DIR}/android-37"
+
+      # ============================================================
+      # 4. DESCARGAR EL JRE 8 DEL PROYECTO POJAVLAUNCHER
+      # ============================================================
       - name: Download Java 8 runtime
         uses: dawidd6/action-download-artifact@v9
         with:
           workflow: build.yml
-          path: app_pojavlauncher/src/main/assets/components/jre
-          workflow_conclusion: completed
+          workflow_conclusion: success
           repo: AngelAuraMC/angelauramc-openjdk-build
           branch: buildjre8
           name: jre8-pojav
+          path: app_pojavlauncher/src/main/assets/components/jre
 
+      # ============================================================
+      # 5. CONFIGURAR GRADLE
+      # ============================================================
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           validate-wrappers: false
           gradle-version: '9.6.1'
 
+      # ============================================================
+      # 6. PREPARAR EL PROYECTO
+      # ============================================================
       - name: Prepare project
+        shell: bash
         run: |
+          set -euo pipefail
+
           bash ./scripts/languagelist_updater.sh
+
           mkdir -p out
 
+      # ============================================================
+      # 7. COMPILAR EL APK DEBUG
+      # ============================================================
       - name: Build Debug APK
+        shell: bash
         run: |
-          gradle --no-daemon --stacktrace \
+          set -euo pipefail
+
+          gradle \
+            --no-daemon \
+            --stacktrace \
             :app_pojavlauncher:assembleDebug
 
-          test -s \
-            app_pojavlauncher/build/outputs/apk/debug/app_pojavlauncher-debug.apk
+          APK_PATH="app_pojavlauncher/build/outputs/apk/debug/app_pojavlauncher-debug.apk"
+
+          if [ ! -s "${APK_PATH}" ]; then
+            echo "::error::The APK was not generated or is empty."
+            exit 1
+          fi
 
           cp \
-            app_pojavlauncher/build/outputs/apk/debug/app_pojavlauncher-debug.apk \
+            "${APK_PATH}" \
             out/Darklyz-Launcher-debug.apk
 
-          md5sum out/Darklyz-Launcher-debug.apk \
+          md5sum \
+            out/Darklyz-Launcher-debug.apk \
             > out/Darklyz-Launcher-debug.md5
 
+          echo "APK generated successfully."
+          ls -lh out/Darklyz-Launcher-debug.*
+
+      # ============================================================
+      # 8. PUBLICAR EL APK COMO ARTIFACT
+      # ============================================================
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
@@ -90,3 +160,4 @@ jobs:
           path: out/Darklyz-Launcher-debug.*
           if-no-files-found: error
           retention-days: 7
+
