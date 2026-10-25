@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/background_app"
+    android:background="@drawable/darklyz_screen_background"
     android:gravity="center"
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/fragment_padding_medium">
@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="@+id/login_menu"
         app:layout_constraintTop_toTopOf="@id/login_menu"
         app:layout_constraintVertical_chainStyle="packed"
-        />
+         android:textColor="@color/primary_text"/>
 
     <com.kdt.mcgui.MineButton
         android:id="@+id/button_local_authentication"
@@ -50,6 +50,6 @@
         app:layout_constraintEnd_toEndOf="@+id/login_menu"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/login_menu"
-        app:layout_constraintTop_toBottomOf="@+id/button_microsoft_authentication" />
+        app:layout_constraintTop_toBottomOf="@+id/button_microsoft_authentication"  android:textColor="@color/primary_text"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

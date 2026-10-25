@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="@dimen/_52sdp"
     android:layout_width="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal" android:background="@drawable/darklyz_card">
 
     <fr.spse.extended_view.ExtendedTextView
         android:id="@+id/account_item"
@@ -22,7 +22,7 @@
         tools:drawableStart="@mipmap/ic_launcher"
 
 
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlSymmetry"  android:textColor="@color/primary_text"/>
 
     <!-- Fun fact, if I put an Image button, the spinner fails to put an onclick listener on the extended view -->
     <ImageView

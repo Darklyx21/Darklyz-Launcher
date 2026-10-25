@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_app"
+    android:background="@drawable/darklyz_screen_background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingHorizontal="@dimen/fragment_padding_medium"
     >
@@ -44,7 +44,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/search_mod_filter"
-            />
+             android:textColor="@color/primary_text"/>
 
         <ImageButton
             android:id="@+id/search_mod_filter"
@@ -60,7 +60,7 @@
             app:layout_constraintTop_toTopOf="@id/search_mod_edittext"
             app:layout_constraintBottom_toBottomOf="@id/search_mod_edittext"
 
-            />
+             android:textColor="@color/primary_text"/>
 
         <ProgressBar
             android:id="@+id/search_mod_progressbar"
@@ -100,6 +100,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/search_mod_list"
         app:layout_constraintEnd_toEndOf="@+id/search_mod_list"
         app:layout_constraintStart_toStartOf="@+id/search_mod_list"
-        app:layout_constraintTop_toTopOf="@+id/search_mod_list" />
+        app:layout_constraintTop_toTopOf="@+id/search_mod_list"  android:textColor="@color/primary_text"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="control_button_color">#4CC4C4C4</color>
-    <color name="control_button_pressed_color">#4D000000</color>
-
-    <color name="minebutton_color">#9649b8</color>
-    <color name="background_app">#181818</color>
-    <color name="divider">@color/background_overlay</color>
-    <color name="background_overlay">#464646</color>
-    <color name="background_status_bar">#242424</color>
-    <color name="background_bottom_bar">#232323</color>
-
-    <color name="primary_text">#FFFFFF</color>
-    <color name="secondary_text">#B2B2B2</color>
+<color name="control_button_color">#4CC4C4C4</color><color name="control_button_pressed_color">#4D000000</color>
+<color name="minebutton_color">#A855F7</color><color name="background_app">#090910</color><color name="background_status_bar">#08080F</color><color name="background_bottom_bar">#11111B</color><color name="background_overlay">#29243A</color><color name="divider">#302941</color><color name="primary_text">#F8F7FF</color><color name="secondary_text">#B6B3C8</color>
+<color name="darklyz_black">#07070C</color><color name="darklyz_background">#090910</color><color name="darklyz_surface">#141420</color><color name="darklyz_surface_elevated">#1C1A2B</color><color name="darklyz_surface_pressed">#29233A</color><color name="darklyz_purple">#A855F7</color><color name="darklyz_purple_pressed">#7C3AED</color><color name="darklyz_cyan">#22D3EE</color><color name="darklyz_border">#39304E</color><color name="darklyz_text">#F8F7FF</color><color name="darklyz_text_secondary">#B6B3C8</color><color name="darklyz_text_muted">#89869F</color><color name="darklyz_success">#4ADE80</color><color name="darklyz_warning">#FBBF24</color><color name="darklyz_error">#FB7185</color>
 </resources>

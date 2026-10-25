@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_line"
+    android:background="@drawable/darklyz_card"
     android:paddingHorizontal="@dimen/_2sdp"
     android:paddingVertical="@dimen/_2sdp"
     android:layout_marginVertical="@dimen/padding_medium"
@@ -47,7 +47,7 @@
         app:layout_constraintEnd_toStartOf="@+id/mod_source_imageview"
         app:layout_constraintStart_toEndOf="@+id/mod_thumbnail_imageview"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Feed the beast - Reforged" />
+        tools:text="Feed the beast - Reforged"  android:textColor="@color/primary_text"/>
 
     <TextView
         android:id="@+id/mod_body_textview"
@@ -65,7 +65,7 @@
         app:layout_constraintTop_toBottomOf="@+id/mod_title_textview"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="0.0"
-        tools:text="Feed the beast - Reforged is a machine and magic focused modpack, with no respect for the minimum requirements of minecraft. Very long text" />
+        tools:text="Feed the beast - Reforged is a machine and magic focused modpack, with no respect for the minimum requirements of minecraft. Very long text"  android:textColor="@color/primary_text"/>
 
 
     <!--

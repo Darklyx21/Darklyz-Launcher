@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" android:background="@drawable/darklyz_card">
 
 
     <TextView
@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/search_modpack_download_error"
-        android:textColor="#FFFF0000"
+        android:textColor="@color/primary_text"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,6 +35,6 @@
         android:layout_marginBottom="@dimen/padding_large"
 
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mod_extended_version_spinner" />
+        app:layout_constraintTop_toBottomOf="@id/mod_extended_version_spinner"  android:textColor="@color/primary_text"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

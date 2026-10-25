@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/background_app"
+    android:background="@drawable/darklyz_screen_background"
     android:paddingHorizontal="@dimen/fragment_padding_medium">
 
 
@@ -16,7 +16,7 @@
         android:textAlignment="center"
         android:gravity="center"
         android:layout_marginTop="@dimen/padding_large"
-        android:text="@string/forge_dl_select_version" />
+        android:text="@string/forge_dl_select_version"  android:textColor="@color/primary_text"/>
 
     <View
         android:id="@+id/view"
@@ -59,14 +59,14 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="@string/modloader_dl_failed_to_load_list"
-            android:textColor="#FFFF0000"
+            android:textColor="@color/primary_text"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/forge_installer_retry_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/global_retry" />
+            android:text="@string/global_retry"  android:textColor="@color/primary_text"/>
     </LinearLayout>
 
     <ProgressBar

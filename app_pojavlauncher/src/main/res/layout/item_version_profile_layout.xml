@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="?attr/selectableItemBackground"
+    android:background="@drawable/darklyz_card"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_52sdp"
     android:paddingStart="@dimen/_17sdp"
@@ -14,7 +14,7 @@
     android:drawablePadding="@dimen/_19sdp"
     tools:drawableStart="@drawable/ic_gamepad_pointer"
     tools:text="FORGE - Forge-1.7.10-1664"
-    tools:ignore="RtlSymmetry">
+    tools:ignore="RtlSymmetry" android:textColor="@color/primary_text">
 
 
 </fr.spse.extended_view.ExtendedTextView>
