@@ -71,33 +71,28 @@ jobs:
 
           SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
           PLATFORM_DIR="${SDK}/platforms"
+          SOURCE="${PLATFORM_DIR}/android-37.0"
+          ALIAS="${PLATFORM_DIR}/android-37"
 
           echo "Android SDK: ${SDK}"
 
-          if [ ! -d "${PLATFORM_DIR}/android-37.0" ]; then
+          if [ ! -f "${SOURCE}/android.jar" ]; then
             echo "::error::Android SDK Platform 37.0 was not installed."
             echo "Available platform directories:"
-
-            if [ -d "${PLATFORM_DIR}" ]; then
-              ls -la "${PLATFORM_DIR}"
-            fi
-
+            ls -la "${PLATFORM_DIR}" || true
             exit 1
           fi
 
-          rm -rf "${PLATFORM_DIR}/android-37"
-          cp -a "${PLATFORM_DIR}/android-37.0" "${PLATFORM_DIR}/android-37"
-          sed -i 's/AndroidVersion.ApiLevel=37.0/AndroidVersion.ApiLevel=37/g' "${PLATFORM_DIR}/android-37/source.properties"
-          sed -i '/AndroidVersion.ApiMinorLevel/d' "${PLATFORM_DIR}/android-37/source.properties"
-          if [ -f "${PLATFORM_DIR}/android-37/package.xml" ]; then
-            sed -i 's/platforms;android-37.0/platforms;android-37/g' "${PLATFORM_DIR}/android-37/package.xml"
-            sed -i 's/<api-level>37.0<\/api-level>/<api-level>37<\/api-level>/g' "${PLATFORM_DIR}/android-37/package.xml"
-          fi
-          echo "Compatibility platform android-37 created and patched." 
+          rm -rf "${ALIAS}"
+          ln -s "android-37.0" "${ALIAS}"
 
-          ls -ld \
-            "${PLATFORM_DIR}/android-37.0" \
-            "${PLATFORM_DIR}/android-37"
+          if [ ! -f "${ALIAS}/android.jar" ]; then
+            echo "::error::Compatibility alias android-37 is invalid."
+            exit 1
+          fi
+
+          echo "Android 37 compatibility alias created."
+          ls -ld "${SOURCE}" "${ALIAS}"
 
       # ============================================================
       # 4. DESCARGAR EL JRE 8 DEL PROYECTO POJAVLAUNCHER
